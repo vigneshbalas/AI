@@ -1,7 +1,24 @@
+# Qdrant
 qdrant-client==1.10.1
 protobuf==5.28.3
 
+# LlamaIndex
 llama-index==0.10.30
 llama-index-llms-ollama==0.1.2
 llama-index-embeddings-ollama==0.1.2
 llama-index-vector-stores-qdrant==0.1.2
+
+# Transformers & NLP
+transformers==4.42.0
+torch>=2.1.0
+
+# Tokenization / T5
+sentencepiece==0.1.99
+spacy==3.6.0
+
+# Utility packages
+typer==0.9.4
+tqdm==4.66.1
+pydantic==1.10.22
+pathlib-abc==0.1.1
+smart-open==6.4.0

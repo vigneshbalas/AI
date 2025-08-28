@@ -3,3 +3,5 @@ faiss_index
 qdrant_data
 venv
 llama_log.txt
+agent_demo_env
+storage
