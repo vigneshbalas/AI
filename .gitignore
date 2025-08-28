@@ -1,0 +1,5 @@
+__pycache__
+faiss_index
+qdrant_data
+venv
+llama_log.txt

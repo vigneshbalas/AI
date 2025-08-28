@@ -1,0 +1,56 @@
+@startuml
+actor User
+participant "Main Loop" as App
+participant "QdrantClient" as Qdrant
+participant "OllamaEmbeddings" as Emb
+participant "OllamaLLM" as LLM
+
+== Asking a Question ==
+
+User -> App: Enter question
+App -> Emb: embed_query(question)
+Emb --> App: embedding vector
+App -> Qdrant: query_points(vector, k=TOP_K)
+Qdrant --> App: [results + scores]
+
+alt Memory found (score >= threshold)
+    App -> App: Extract stored answer
+    App -> User: 📘 Answer (from memory)
+else No relevant memory
+    App -> LLM: invoke(question)
+    LLM --> App: Generated answer
+    App -> User: 🧠 (LLM answer)
+    App -> User: Suggest "teach:" if wrong
+end
+
+== Teaching a Fact ==
+
+User -> App: teach: <answer>
+alt Has last question
+    App -> App: Build texts
+    note right
+      - Short fact
+      - Q/A pair
+      - Canonical Q/A
+    end note
+    App -> Emb: embed_documents(texts)
+    Emb --> App: vectors
+    App -> Qdrant: upsert(points with payload)
+    Qdrant --> App: ack
+    App -> User: ✅ Learned and stored
+else No last question
+    App -> App: Store fact as general memory
+end
+
+== Managing Memory ==
+
+User -> App: listmem
+App -> Qdrant: scroll(limit=100)
+Qdrant --> App: memory list
+App -> User: Display memories
+
+User -> App: forget <n>
+App -> Qdrant: delete(point_id)
+Qdrant --> App: ack
+App -> User: 🗑️ Forgot memory
+@enduml
