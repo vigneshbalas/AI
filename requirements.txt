@@ -1,2 +1,19 @@
+# OpenAI SDK
 openai>=1.0.0
-termcolor>=2.3.0
+
+# SpaCy for NLP and fact extraction
+spacy>=3.6.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0-py3-none-any.whl
+
+# SentenceTransformers for embedding generation
+sentence-transformers>=2.2.2
+
+# Qdrant client for vector DB
+qdrant-client>=1.7.0
+
+# Transformers (optional, only if you plan to switch back to BLOOMZ locally)
+transformers>=4.35.0
+torch>=2.1.0
+
+# JSON parsing and standard utils
+numpy>=1.24.0
